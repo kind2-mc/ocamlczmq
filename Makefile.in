@@ -12,7 +12,7 @@ ocamlczmq: czmq
 .PHONY: czmq
 
 czmq: 
-	cd czmq && ./configure @CZMQ_CONFFLAGS@ --prefix=$(CURDIR)
+	cd czmq && sh autogen.sh && ./configure @CZMQ_CONFFLAGS@ --prefix=$(CURDIR)
 	make -C czmq
 	make -C czmq install	
 
