@@ -4,6 +4,8 @@
 
 top_builddir = @top_builddir@
 
+OCAMLOPT=@OCAMLOPT@
+
 all: Makefile.in czmq_stubs 
 
 # Rules to configure and compile ZeroMQ 
@@ -23,7 +25,7 @@ zeromq: configure-zeromq
 autogen-czmq: zeromq/configure.in
 	cd czmq && sh autogen.sh
 
-configure-czmq: autogen-zeromq
+configure-czmq: autogen-czmq
 	 cd czmq && ./configure --prefix=$(CURDIR)
 
 czmq: zeromq configure-czmq
@@ -39,6 +41,8 @@ clean:
 	make -C zeromq clean
 	make -C czmq clean
 
+zmq_test: zmq_test.ml
+	$(OCAMLOPT) -I lib ZMQ.cmxa zmq_test.ml -o zmq_test
 
 # .PHONY: ocamlczmq
 
